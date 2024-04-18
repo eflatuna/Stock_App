@@ -70,7 +70,7 @@ const MenuListItems = () => {
 		<div>
 			<Toolbar />
 			<List>
-				{links.map((item, index) => (
+				{links?.map((item, index) => (
 					<ListItem key={item.title} disablePadding>
 						<ListItemButton
 							onClick={() => navigate(item.url)}
