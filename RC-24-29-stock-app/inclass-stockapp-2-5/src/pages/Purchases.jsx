@@ -1,7 +1,5 @@
 import React from "react";
 
-const Purchases = () => {
-	return <div>Purchases</div>;
-};
+const Purchases = () => {};
 
 export default Purchases;
