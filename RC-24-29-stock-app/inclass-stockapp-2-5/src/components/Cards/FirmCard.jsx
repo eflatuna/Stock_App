@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
+import { btnHoverStyle } from "../../styles/globalStyle";
 
 export default function FirmCard({ _id, name, address, image, phone }) {
 	return (
@@ -46,8 +47,8 @@ export default function FirmCard({ _id, name, address, image, phone }) {
 					gap: 2,
 				}}
 			>
-				<EditIcon />
-				<DeleteOutlineIcon />
+				<EditIcon sx={btnHoverStyle} />
+				<DeleteOutlineIcon sx={btnHoverStyle} />
 			</CardActions>
 		</Card>
 	);
