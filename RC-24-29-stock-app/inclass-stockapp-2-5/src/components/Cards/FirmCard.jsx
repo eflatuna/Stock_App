@@ -1,14 +1,13 @@
-import * as React from "react";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditIcon from "@mui/icons-material/Edit";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditIcon from "@mui/icons-material/Edit";
-import { btnHoverStyle } from "../../styles/globalStyle";
+import * as React from "react";
 import useStockCall from "../../hooks/useStockCall";
+import { btnHoverStyle } from "../../styles/globalStyle";
 
 export default function FirmCard({
 	_id,
@@ -17,6 +16,7 @@ export default function FirmCard({
 	image,
 	phone,
 	handleOpen,
+	setInitialState,
 }) {
 	const { deleteStockData } = useStockCall();
 	return (
@@ -56,7 +56,13 @@ export default function FirmCard({
 					gap: 2,
 				}}
 			>
-				<EditIcon sx={btnHoverStyle} onClick={handleOpen} />
+				<EditIcon
+					sx={btnHoverStyle}
+					onClick={() => {
+						handleOpen();
+						setInitialState({ _id, name, phone, image, address });
+					}}
+				/>
 				<DeleteOutlineIcon
 					sx={btnHoverStyle}
 					onClick={() => deleteStockData("firms", _id)}

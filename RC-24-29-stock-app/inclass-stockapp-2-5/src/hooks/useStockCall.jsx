@@ -13,8 +13,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const useStockCall = () => {
 	const dispatch = useDispatch();
 	const { token } = useSelector((state) => state.auth);
-	const axioswithToken = useAxios();
-
+	const axiosWithToken = useAxios();
 	// const getFirms = async () => {
 	//   dispatch(fetchStart());
 	//   try {
@@ -52,16 +51,16 @@ const useStockCall = () => {
 
 	//* DRY
 	//! yukarıdaki gibi her seferinde yazmak yerine daha modüler bir yapı kurarak tek bir fonksiyonla bir den fazla get işlemini gerçekleştirebiliyoruz
-
 	const getStockData = async (url) => {
 		dispatch(fetchStart());
 		try {
-			const { data } = await axioswithToken(`${url}`, {
-				// headers: {
-				// 	Authorization: `Token ${token}`,
-				// 	// Authorization: `Bearer ${accesstoken}` //* jwt için
-				// },
-			});
+			// const { data } = await axios(`${BASE_URL}${url}`, {
+			//   headers: {
+			//     Authorization: `Token ${token}`,
+			//     // Authorization: `Bearer ${accesstoken}` //* jwt için
+			//   },
+			// });
+			const { data } = await axiosWithToken(`${url}`);
 			console.log(data);
 			// dispatch(brandsSuccess(data.data));
 			// dispatch(getSuccess({data:data.data,url:url}));//* action creatorlar her zaman tek bir parametre kabul ederler
@@ -71,15 +70,42 @@ const useStockCall = () => {
 			dispatch(fetchFail());
 		}
 	};
+	//! istek atarken ortak olan base_url  ve token gibi değerleri her seferinde yazmak yerine axios instance kullanarak bunları orada tanımlıyoruz. Ve sonrasında sadece istek atmak istediğimiz end pointi yazmamız yeterli oluyor.
 	const deleteStockData = async (url, id) => {
 		dispatch(fetchStart());
 		try {
-			await axioswithToken.delete(`${url}/${id}`, {
-				// headers: {
-				// 	Authorization: `Token ${token}`,
-				// 	// Authorization: `Bearer ${accesstoken}` //* jwt için
-				// },
-			});
+			// await axios.delete(`${BASE_URL}${url}/${id}`, {
+			//   headers: {
+			//     Authorization: `Token ${token}`,
+			//   },
+			// });
+			await axiosWithToken.delete(`${url}/${id}`);
+			// getStockData(url)
+		} catch (error) {
+			console.log(error);
+			dispatch(fetchFail());
+		} finally {
+			getStockData(url);
+		}
+	};
+
+	const postStockData = async (url, info) => {
+		dispatch(fetchStart());
+		try {
+			await axiosWithToken.post(`${url}`, info);
+			// getStockData(url)
+		} catch (error) {
+			console.log(error);
+			dispatch(fetchFail());
+		} finally {
+			getStockData(url);
+		}
+	};
+	const putStockData = async (url, info) => {
+		dispatch(fetchStart());
+		try {
+			await axiosWithToken.put(`${url}/${info._id}`, info);
+			// getStockData(url)
 		} catch (error) {
 			console.log(error);
 			dispatch(fetchFail());
@@ -91,8 +117,10 @@ const useStockCall = () => {
 	return {
 		// getFirms,
 		// getBrands,
-		getStockData,
 		deleteStockData,
+		putStockData,
+		postStockData,
+		getStockData,
 	};
 };
 
