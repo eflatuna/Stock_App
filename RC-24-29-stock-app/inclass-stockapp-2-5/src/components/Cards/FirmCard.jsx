@@ -10,7 +10,14 @@ import EditIcon from "@mui/icons-material/Edit";
 import { btnHoverStyle } from "../../styles/globalStyle";
 import useStockCall from "../../hooks/useStockCall";
 
-export default function FirmCard({ _id, name, address, image, phone }) {
+export default function FirmCard({
+	_id,
+	name,
+	address,
+	image,
+	phone,
+	handleOpen,
+}) {
 	const { deleteStockData } = useStockCall();
 	return (
 		<Card
@@ -49,7 +56,7 @@ export default function FirmCard({ _id, name, address, image, phone }) {
 					gap: 2,
 				}}
 			>
-				<EditIcon sx={btnHoverStyle} />
+				<EditIcon sx={btnHoverStyle} onClick={handleOpen} />
 				<DeleteOutlineIcon
 					sx={btnHoverStyle}
 					onClick={() => deleteStockData("firms", _id)}
