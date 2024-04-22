@@ -7,11 +7,13 @@ import {
 	// firmsSuccess,
 	getSuccess,
 } from "../features/stockSlice";
+import useAxios from "./useAxios";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const useStockCall = () => {
 	const dispatch = useDispatch();
 	const { token } = useSelector((state) => state.auth);
+	const axioswithToken = useAxios();
 
 	// const getFirms = async () => {
 	//   dispatch(fetchStart());
@@ -54,11 +56,11 @@ const useStockCall = () => {
 	const getStockData = async (url) => {
 		dispatch(fetchStart());
 		try {
-			const { data } = await axios(`${BASE_URL}${url}`, {
-				headers: {
-					Authorization: `Token ${token}`,
-					// Authorization: `Bearer ${accesstoken}` //* jwt için
-				},
+			const { data } = await axioswithToken(`${url}`, {
+				// headers: {
+				// 	Authorization: `Token ${token}`,
+				// 	// Authorization: `Bearer ${accesstoken}` //* jwt için
+				// },
 			});
 			console.log(data);
 			// dispatch(brandsSuccess(data.data));
@@ -69,11 +71,28 @@ const useStockCall = () => {
 			dispatch(fetchFail());
 		}
 	};
+	const deleteStockData = async (url, id) => {
+		dispatch(fetchStart());
+		try {
+			await axioswithToken.delete(`${url}/${id}`, {
+				// headers: {
+				// 	Authorization: `Token ${token}`,
+				// 	// Authorization: `Bearer ${accesstoken}` //* jwt için
+				// },
+			});
+		} catch (error) {
+			console.log(error);
+			dispatch(fetchFail());
+		} finally {
+			getStockData(url);
+		}
+	};
 
 	return {
 		// getFirms,
 		// getBrands,
 		getStockData,
+		deleteStockData,
 	};
 };
 
