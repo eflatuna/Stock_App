@@ -51,6 +51,7 @@ const useStockCall = () => {
 
 	//* DRY
 	//! yukarıdaki gibi her seferinde yazmak yerine daha modüler bir yapı kurarak tek bir fonksiyonla bir den fazla get işlemini gerçekleştirebiliyoruz
+	//!----------------  GET CALLS  ---------------------//
 	const getStockData = async (url) => {
 		dispatch(fetchStart());
 		try {
@@ -70,7 +71,12 @@ const useStockCall = () => {
 			dispatch(fetchFail());
 		}
 	};
+	// const getFirm =(info)=>getStockData("firms")
+	const getBrands = () => getStockData("brands");
+
 	//! istek atarken ortak olan base_url  ve token gibi değerleri her seferinde yazmak yerine axios instance kullanarak bunları orada tanımlıyoruz. Ve sonrasında sadece istek atmak istediğimiz end pointi yazmamız yeterli oluyor.
+
+	//!----------------  DELETE CALLS  ---------------------//
 	const deleteStockData = async (url, id) => {
 		dispatch(fetchStart());
 		try {
@@ -88,7 +94,9 @@ const useStockCall = () => {
 			getStockData(url);
 		}
 	};
+	// const deletetFirm =(info)=>deleteStockData(id,"firms")
 
+	//!----------------  POST CALLS  ---------------------//
 	const postStockData = async (url, info) => {
 		dispatch(fetchStart());
 		try {
@@ -101,10 +109,13 @@ const useStockCall = () => {
 			getStockData(url);
 		}
 	};
+	// const postFirm =(info)=>postStockData(info,"firms")
+
+	//!----------------  PUT CALLS  ---------------------//
 	const putStockData = async (url, info) => {
 		dispatch(fetchStart());
 		try {
-			await axiosWithToken.put(`${url}/${info._id}`, info);
+			await axiosWithToken.put(`${url}/${info._id}/`, info);
 			// getStockData(url)
 		} catch (error) {
 			console.log(error);
@@ -113,10 +124,14 @@ const useStockCall = () => {
 			getStockData(url);
 		}
 	};
+	// const putFirm =(info)=>putStockData(info,"firms")
 
 	return {
 		// getFirms,
-		// getBrands,
+		// postFirms
+		getBrands,
+		// deleteFirm,
+		// putFirm,
 		deleteStockData,
 		putStockData,
 		postStockData,
