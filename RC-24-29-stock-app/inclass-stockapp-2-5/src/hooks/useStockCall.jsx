@@ -50,6 +50,7 @@ const useStockCall = () => {
 
 	//* DRY
 	//! yukarıdaki gibi her seferinde yazmak yerine daha modüler bir yapı kurarak tek bir fonksiyonla bir den fazla get işlemini gerçekleştirebiliyoruz
+
 	const getStockData = async (url) => {
 		dispatch(fetchStart());
 		try {
