@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	// brandsSuccess,
@@ -8,6 +7,7 @@ import {
 	getSuccess,
 } from "../features/stockSlice";
 import useAxios from "./useAxios";
+import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const useStockCall = () => {
@@ -71,14 +71,13 @@ const useStockCall = () => {
 			dispatch(fetchFail());
 		}
 	};
-	// const getFirm =(info)=>getStockData("firms")
+
 	const getBrands = () => getStockData("brands");
 
 	//! istek atarken ortak olan base_url  ve token gibi değerleri her seferinde yazmak yerine axios instance kullanarak bunları orada tanımlıyoruz. Ve sonrasında sadece istek atmak istediğimiz end pointi yazmamız yeterli oluyor.
 
 	//!----------------  DELETE CALLS  ---------------------//
 	const deleteStockData = async (url, id) => {
-		dispatch(fetchStart());
 		try {
 			// await axios.delete(`${BASE_URL}${url}/${id}`, {
 			//   headers: {
@@ -86,16 +85,16 @@ const useStockCall = () => {
 			//   },
 			// });
 			await axiosWithToken.delete(`${url}/${id}`);
+			toastSuccessNotify(`${url} successfuly deleted`);
 			// getStockData(url)
 		} catch (error) {
 			console.log(error);
-			dispatch(fetchFail());
+			toastErrorNotify(`${url} something went wrong`);
 		} finally {
 			getStockData(url);
 		}
 	};
-	// const deletetFirm =(info)=>deleteStockData(id,"firms")
-
+	const deleteBrands = (_id) => deleteStockData("brands", _id);
 	//!----------------  POST CALLS  ---------------------//
 	const postStockData = async (url, info) => {
 		dispatch(fetchStart());
@@ -109,7 +108,6 @@ const useStockCall = () => {
 			getStockData(url);
 		}
 	};
-	// const postFirm =(info)=>postStockData(info,"firms")
 
 	//!----------------  PUT CALLS  ---------------------//
 	const putStockData = async (url, info) => {
@@ -124,14 +122,10 @@ const useStockCall = () => {
 			getStockData(url);
 		}
 	};
-	// const putFirm =(info)=>putStockData(info,"firms")
 
 	return {
-		// getFirms,
-		// postFirms
+		deleteBrands,
 		getBrands,
-		// deleteFirm,
-		// putFirm,
 		deleteStockData,
 		putStockData,
 		postStockData,

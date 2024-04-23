@@ -7,7 +7,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import useStockCall from "../../hooks/useStockCall";
-import { btnHoverStyle } from "../../styles/globalStyle";
+import { btnHover } from "../../styles/globalStyle";
 
 export default function BrandCard({
 	_id,
@@ -16,7 +16,7 @@ export default function BrandCard({
 	handleOpen,
 	setInitialState,
 }) {
-	const { deleteStockData } = useStockCall();
+	const { deleteBrands } = useStockCall();
 	return (
 		<Card
 			sx={{
@@ -47,15 +47,15 @@ export default function BrandCard({
 				}}
 			>
 				<EditIcon
-					sx={btnHoverStyle}
+					sx={btnHover}
 					onClick={() => {
 						handleOpen();
 						setInitialState({ _id, name, image });
 					}}
 				/>
 				<DeleteOutlineIcon
-					sx={btnHoverStyle}
-					onClick={() => deleteStockData("brands", _id)}
+					sx={btnHover}
+					onClick={() => deleteBrands(_id)}
 				/>
 			</CardActions>
 		</Card>

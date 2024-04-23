@@ -1,4 +1,4 @@
-export const btnHoverStyle = {
+export const btnHover = {
 	cursor: "pointer",
 	"&:hover": { color: "red" },
 };

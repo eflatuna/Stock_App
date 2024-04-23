@@ -4,11 +4,15 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
-import BrandCard from "../components/Cards/FirmCard";
-import BrandModal from "../components/Modals/FirmModal";
+import BrandCard from "../components/Cards/BrandCard";
+import BrandModal from "../components/Modals/BrandModal";
 import useStockCall from "../hooks/useStockCall";
 
 const Brands = () => {
+	useEffect(() => {
+		getBrands();
+	}, []);
+
 	const { getBrands } = useStockCall();
 	const { brands } = useSelector((state) => state.stock);
 	const [open, setOpen] = useState(false);
@@ -27,9 +31,9 @@ const Brands = () => {
 	console.log("brands:", brands);
 	console.log("brands:", initialState);
 
-	useEffect(() => {
-		getBrands();
-	}, []);
+	// useEffect(() => {
+	// 	getBrands();
+	// }, []);
 
 	return (
 		<Container>
@@ -45,9 +49,10 @@ const Brands = () => {
 				New Brand
 			</Button>
 			<Grid container spacing={2} mt={3}>
-				{brands.map((brand) => (
+				{brands?.map((brand) => (
 					<Grid item xs={12} md={6} lg={4} xl={3} key={brand._id}>
 						<BrandCard
+							brand={brand}
 							{...brand}
 							handleOpen={handleOpen}
 							setInitialState={setInitialState}
