@@ -6,7 +6,7 @@ import * as React from "react";
 import useStockCall from "../../hooks/useStockCall";
 import { flexCenter, modalStyle } from "../../styles/globalStyle";
 
-export default function FirmModal({ open, handleClose, initialState }) {
+export default function ProductModal({ open, handleClose, initialState }) {
 	const [info, setInfo] = React.useState(initialState);
 	const { postStockData, putStockData } = useStockCall();
 
@@ -23,10 +23,10 @@ export default function FirmModal({ open, handleClose, initialState }) {
 
 		if (info._id) {
 			//* id varsa edit işlemi
-			putStockData("firms", info);
+			putStockData("products", info);
 		} else {
 			//* id yoksa create işlemi
-			postStockData("firms", info);
+			postStockData("products", info);
 		}
 		handleClose();
 	};
@@ -46,43 +46,35 @@ export default function FirmModal({ open, handleClose, initialState }) {
 						sx={flexCenter}
 					>
 						<TextField
-							label="Firm Name"
+							label="Category Name"
 							name="name"
 							id="name"
 							type="text"
 							variant="outlined"
-							value={info?.name || ""}
+							// value={info?.categoryId.name || ""}
 							onChange={handleChange}
 						/>
 						<TextField
-							label="Firm Address"
-							name="address"
-							id="address"
+							label="Brand Name"
+							name="name"
+							id="name"
 							type="text"
 							variant="outlined"
-							value={info?.address || ""}
+							// value={info?.brandId.name || ""}
 							onChange={handleChange}
 						/>
 						<TextField
-							label="Firm Phone"
-							name="phone"
-							id="phone"
-							type="tel"
+							label="Product Name"
+							name="name"
+							id="name"
+							type="text"
 							variant="outlined"
-							value={info?.phone || ""}
+							// value={info?. || ""}
 							onChange={handleChange}
 						/>
-						<TextField
-							label="Firm Logo"
-							name="image"
-							id="image"
-							type="url"
-							variant="outlined"
-							value={info?.image || ""}
-							onChange={handleChange}
-						/>
+
 						<Button type="submit" variant="contained">
-							{info._id ? "Update Firm" : "Submit Firm"}
+							Submit Product
 						</Button>
 					</Box>
 				</Box>

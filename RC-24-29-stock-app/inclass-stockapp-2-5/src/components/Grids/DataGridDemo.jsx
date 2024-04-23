@@ -37,6 +37,7 @@ export default function DataGridDemo() {
 	const { products } = useSelector((state) => state.stock);
 	React.useEffect(() => {
 		getProducts();
+		deleteStockData();
 	}, []);
 
 	const rows = products.map((product, index) => ({

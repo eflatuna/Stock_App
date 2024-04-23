@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from "react";
-// import Button from "@mui/material/Button";
-// import Typography from "@mui/material/Typography";
+
 import { useSelector } from "react-redux";
-// import ProductModal from "../components/Modals/ProductModal";
+import ProductModal from "../components/Modals/ProductModal";
 import useStockCall from "../hooks/useStockCall";
-// import Table from "@mui/material/Table";
-// import TableBody from "@mui/material/TableBody";
-// import TableCell from "@mui/material/TableCell";
-// import TableContainer from "@mui/material/TableContainer";
-// import TableHead from "@mui/material/TableHead";
-// import TableRow from "@mui/material/TableRow";
-// import Paper from "@mui/material/Paper";
+
 import { Box, Button, Container, Typography } from "@mui/material";
 import DataGridDemo from "../components/Grids/DataGridDemo";
-// import DeleteIcon from "@mui/icons-material/Delete";
-// import { btnHover } from "../styles/globalStyle";
 
 const Products = () => {
-	// const { getBrands, getCategories, getProducts } = useStockCall();
-	// const { products } = useSelector((state) => state.stock);
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => {
@@ -59,6 +48,13 @@ const Products = () => {
 			</Button>
 			<Container>
 				<DataGridDemo />
+				{open && (
+					<ProductModal
+						open={open}
+						handleClose={handleClose}
+						initialState={initialState}
+					/>
+				)}
 			</Container>
 		</Box>
 	);
