@@ -5,33 +5,6 @@ import useStockCall from "../../hooks/useStockCall";
 import { useSelector } from "react-redux";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-const columns = [
-	// { field: "index", headerName: "#", width: 90, editable: true },
-	{ field: "name", headerName: "Name", width: 90, editable: true },
-	{ field: "category", headerName: "Category", width: 150, editable: true },
-	{ field: "brand", headerName: "Brand", width: 150, editable: true },
-	{
-		field: "stock",
-		headerName: "Stock",
-		type: "number",
-		width: 110,
-		editable: true,
-	},
-	{
-		field: "actions",
-		headerName: "Actions",
-		type: "actions",
-		editable: true,
-		getActions: (props) => [
-			<GridActionsCellItem
-				icon={<DeleteForeverIcon />}
-				onClick={() => deleteStockData("products", props.id)}
-				label="Delete"
-			/>,
-		],
-	},
-];
-
 export default function DataGridDemo() {
 	const { getProducts, deleteStockData } = useStockCall();
 	const { products } = useSelector((state) => state.stock);
@@ -39,6 +12,38 @@ export default function DataGridDemo() {
 		getProducts();
 		deleteStockData();
 	}, []);
+
+	const columns = [
+		{ field: "_id", headerName: "#", width: 90, editable: true },
+		{ field: "name", headerName: "Name", width: 90, editable: true },
+		{
+			field: "category",
+			headerName: "Category",
+			width: 150,
+			editable: true,
+		},
+		{ field: "brand", headerName: "Brand", width: 150, editable: true },
+		{
+			field: "stock",
+			headerName: "Stock",
+			type: "number",
+			width: 110,
+			editable: true,
+		},
+		{
+			field: "actions",
+			headerName: "Actions",
+			type: "actions",
+			editable: true,
+			getActions: (props) => [
+				<GridActionsCellItem
+					icon={<DeleteForeverIcon />}
+					onClick={() => deleteStockData("products", props.id)}
+					label="Delete"
+				/>,
+			],
+		},
+	];
 
 	const rows = products.map((product, index) => ({
 		id: product._id,
@@ -61,7 +66,7 @@ export default function DataGridDemo() {
 					},
 				}}
 				pageSizeOptions={[5]}
-				checkboxSelection
+				// checkboxSelection
 				disableRowSelectionOnClick
 				slots={{ toolbar: GridToolbar }}
 			/>

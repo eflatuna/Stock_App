@@ -5,10 +5,20 @@ import Modal from "@mui/material/Modal";
 import * as React from "react";
 import useStockCall from "../../hooks/useStockCall";
 import { flexCenter, modalStyle } from "../../styles/globalStyle";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import { useSelector } from "react-redux";
 
-export default function ProductModal({ open, handleClose, initialState }) {
-	const [info, setInfo] = React.useState(initialState);
-	const { postStockData, putStockData } = useStockCall();
+export default function ProductModal({ open, handleClose }) {
+	const [info, setInfo] = React.useState({
+		categoryId: "",
+		brandId: "",
+		name: "",
+	});
+	const { postStockData } = useStockCall();
+	const { categories, brands } = useSelector((state) => state.stock);
 
 	const handleChange = (e) => {
 		console.log(e.target.id);
@@ -19,15 +29,7 @@ export default function ProductModal({ open, handleClose, initialState }) {
 	console.log(info);
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log("submit", info);
-
-		if (info._id) {
-			//* id varsa edit işlemi
-			putStockData("products", info);
-		} else {
-			//* id yoksa create işlemi
-			postStockData("products", info);
-		}
+		postStockData("products", info);
 		handleClose();
 	};
 
@@ -35,7 +37,7 @@ export default function ProductModal({ open, handleClose, initialState }) {
 		<div>
 			<Modal
 				open={open}
-				onClose={handleClose} //* onClose mui modal'a ait bir fonksiyondur.
+				onClose={handleClose}
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
 			>
@@ -45,24 +47,44 @@ export default function ProductModal({ open, handleClose, initialState }) {
 						onSubmit={handleSubmit}
 						sx={flexCenter}
 					>
-						<TextField
-							label="Category Name"
-							name="name"
-							id="name"
-							type="text"
-							variant="outlined"
-							// value={info?.categoryId.name || ""}
-							onChange={handleChange}
-						/>
-						<TextField
-							label="Brand Name"
-							name="name"
-							id="name"
-							type="text"
-							variant="outlined"
-							// value={info?.brandId.name || ""}
-							onChange={handleChange}
-						/>
+						<FormControl fullWidth>
+							<InputLabel id="demo-simple-select-label">
+								Category
+							</InputLabel>
+							<Select
+								labelId="demo-simple-category-label"
+								id="categoryId"
+								label="Category"
+								name="categoryId"
+								value={info.categoryId}
+								onChange={handleChange}
+							>
+								{categories.map((category) => (
+									<MenuItem value={category._id}>
+										{category.name}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+						<FormControl fullWidth>
+							<InputLabel id="demo-simple-brand-label">
+								Brand
+							</InputLabel>
+							<Select
+								labelId="demo-simple-select-label"
+								id="brandId"
+								label="Brand"
+								name="brandId"
+								value={info.brandId}
+								onChange={handleChange}
+							>
+								{brands.map((brand) => (
+									<MenuItem value={brand._id}>
+										{brand.name}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
 						<TextField
 							label="Product Name"
 							name="name"

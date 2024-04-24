@@ -20,3 +20,22 @@ export const flexCenter = {
 	flexDirection: "column",
 	gap: 2,
 };
+export const btnStyle = {
+	cursor: "pointer",
+	color: "secondary.main",
+	"&:hover": {
+		color: "red",
+	},
+};
+export const flexColumn = {
+	display: "flex",
+	flexDirection: "column",
+	gap: 2,
+};
+
+export const flex = {
+	display: "flex",
+	justifyContent: "center",
+	alignItems: "center",
+	gap: 2,
+};

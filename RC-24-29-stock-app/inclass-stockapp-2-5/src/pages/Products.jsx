@@ -1,38 +1,24 @@
 import React, { useEffect, useState } from "react";
-
-import { useSelector } from "react-redux";
 import ProductModal from "../components/Modals/ProductModal";
-import useStockCall from "../hooks/useStockCall";
-
 import { Box, Button, Container, Typography } from "@mui/material";
 import DataGridDemo from "../components/Grids/DataGridDemo";
+import useStockCall from "../hooks/useStockCall";
+import { useSelector } from "react-redux";
 
 const Products = () => {
+	const { getStockData, getProCatBrand } = useStockCall();
+	const { products } = useSelector((state) => state.stock);
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => {
 		setOpen(false);
-		setInitialState({
-			name: "",
-			phone: "",
-			address: "",
-			image: "",
-		});
 	};
-	const [initialState, setInitialState] = useState({
-		name: "",
-		phone: "",
-		address: "",
-		image: "",
-	});
-	// console.log("firms:", firms);
-	// console.log("firms:", initialState);
-	// useEffect(() => {
-	// 	getBrands();
-	// 	getCategories();
-	// 	getProducts();
-	// }, []);
-
+	useEffect(() => {
+		getStockData("products");
+		getStockData("categories");
+		getStockData("brands");
+		// getProCatBrand()
+	}, []);
 	return (
 		<Box>
 			<Typography
@@ -48,13 +34,7 @@ const Products = () => {
 			</Button>
 			<Container>
 				<DataGridDemo />
-				{open && (
-					<ProductModal
-						open={open}
-						handleClose={handleClose}
-						initialState={initialState}
-					/>
-				)}
+				{open && <ProductModal open={open} handleClose={handleClose} />}
 			</Container>
 		</Box>
 	);
