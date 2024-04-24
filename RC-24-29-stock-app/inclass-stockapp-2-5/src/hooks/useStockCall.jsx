@@ -3,6 +3,7 @@ import {
 	// brandsSuccess,
 	fetchFail,
 	fetchStart,
+	getProCatBrandSuccess,
 	// firmsSuccess,
 	getSuccess,
 } from "../features/stockSlice";
@@ -126,6 +127,28 @@ const useStockCall = () => {
 		}
 	};
 
+	//!Promise.all()
+	//* eş zamanlı istek atma. aynı anda istek atılıyor aynı anda responselar gelmeye başlıyor. Zaman noktasında da avantajlı. En uzun hangi istek sürdüyse veriler ondan sonra valid olur. Birbirine bağımlı isteklerde en büyük avantajı hata durumu. İsteklerden biri bile hatalı olursa hepsi iptal olur.
+	const getProCatBrand = async () => {
+		dispatch(fetchStart());
+		try {
+			// const [a,b] = [1,2] // array destructuring
+			const [products, categories, brands] = await Promise.all([
+				axiosWithToken("products"),
+				axiosWithToken("categories"),
+				axiosWithToken("brands"),
+			]);
+			dispatch(
+				getProCatBrandSuccess([
+					products?.data?.data,
+					categories?.data?.data,
+					brands?.data?.data,
+				])
+			);
+		} catch (error) {
+			dispatch(fetchFail());
+		}
+	};
 	return {
 		deleteBrands,
 		getBrands,
@@ -135,6 +158,7 @@ const useStockCall = () => {
 		getStockData,
 		getCategories,
 		getProducts,
+		getProCatBrand,
 	};
 };
 

@@ -13,6 +13,7 @@ const Products = () => {
 	const handleClose = () => {
 		setOpen(false);
 	};
+	console.log("products:", products);
 	useEffect(() => {
 		getStockData("products");
 		getStockData("categories");
@@ -20,7 +21,7 @@ const Products = () => {
 		// getProCatBrand()
 	}, []);
 	return (
-		<Box>
+		<Container maxWidth={"xl"}>
 			<Typography
 				align="center"
 				variant="h4"
@@ -32,11 +33,9 @@ const Products = () => {
 			<Button variant="contained" onClick={handleOpen}>
 				New Product
 			</Button>
-			<Container>
-				<ProductTable />
-				{open && <ProductModal open={open} handleClose={handleClose} />}
-			</Container>
-		</Box>
+			{open && <ProductModal open={open} handleClose={handleClose} />}
+			<ProductTable />
+		</Container>
 	);
 };
 
