@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import ProductModal from "../components/Modals/ProductModal";
+import SalesModal from "../components/Modals/SalesModal";
 import { Box, Button, Container, Typography } from "@mui/material";
-import ProductTable from "../components/Tables/ProductTable";
+import SalesTable from "../components/Tables/SalesTable";
 import useStockCall from "../hooks/useStockCall";
 import { useSelector } from "react-redux";
 
-const Products = () => {
+const Sales = () => {
 	const { getStockData, getProCatBrand } = useStockCall();
 	const { products } = useSelector((state) => state.stock);
 	const [open, setOpen] = useState(false);
@@ -28,15 +28,15 @@ const Products = () => {
 				component="h1"
 				color="secondary.second"
 			>
-				Products
+				Sales
 			</Typography>
 			<Button variant="contained" onClick={handleOpen}>
-				New Product
+				New Sales
 			</Button>
-			{open && <ProductModal open={open} handleClose={handleClose} />}
-			<ProductTable />
+			{open && <SalesModal open={open} handleClose={handleClose} />}
+			<SalesTable />
 		</Container>
 	);
 };
 
-export default Products;
+export default Sales;

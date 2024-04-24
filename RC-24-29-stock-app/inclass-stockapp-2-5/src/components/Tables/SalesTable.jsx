@@ -11,7 +11,7 @@ function getRowId(row) {
 	return row._id;
 }
 
-export default function ProductTable() {
+export default function SalesTable() {
 	const { deleteStockData } = useStockCall();
 	const { products } = useSelector((state) => state.stock);
 

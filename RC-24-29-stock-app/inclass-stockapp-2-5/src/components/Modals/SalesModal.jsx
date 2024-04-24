@@ -11,14 +11,14 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import { useSelector } from "react-redux";
 
-export default function ProductModal({ open, handleClose }) {
+export default function SalesModal({ open, handleClose }) {
 	const [info, setInfo] = React.useState({
 		categoryId: "",
 		brandId: "",
 		name: "",
 	});
 	const { postStockData } = useStockCall();
-	const { categories, brands } = useSelector((state) => state.stock);
+	const { brands, products } = useSelector((state) => state.stock);
 
 	const handleChange = (e) => {
 		console.log(e.target.id);
@@ -48,33 +48,11 @@ export default function ProductModal({ open, handleClose }) {
 						sx={flexCenter}
 					>
 						<FormControl fullWidth>
-							<InputLabel id="demo-simple-select-label">
-								Category
-							</InputLabel>
-							<Select
-								labelId="demo-simple-category-label"
-								id="categoryId"
-								label="Category"
-								name="categoryId"
-								value={info.categoryId}
-								onChange={handleChange}
-							>
-								{categories.map((category) => (
-									<MenuItem
-										key={category._id}
-										value={category._id}
-									>
-										{category.name}
-									</MenuItem>
-								))}
-							</Select>
-						</FormControl>
-						<FormControl fullWidth>
 							<InputLabel id="demo-simple-brand-label">
 								Brand
 							</InputLabel>
 							<Select
-								labelId="demo-simple-select-label"
+								labelId="demo-simple-brand-label"
 								id="brandId"
 								label="Brand"
 								name="brandId"
@@ -88,18 +66,53 @@ export default function ProductModal({ open, handleClose }) {
 								))}
 							</Select>
 						</FormControl>
-						<TextField
-							label="Product Name"
-							name="name"
-							id="name"
-							type="text"
-							variant="outlined"
-							value={info.name}
-							onChange={handleChange}
-						/>
+						<FormControl fullWidth>
+							<InputLabel id="demo-simple-product-label">
+								Product
+							</InputLabel>
+							<Select
+								labelId="demo-simple-product-label"
+								id="brandId"
+								label="Brand"
+								name="brandId"
+								value={info.brandId}
+								onChange={handleChange}
+							>
+								{products.map((product) => (
+									<MenuItem
+										key={product._id}
+										value={product._id}
+									>
+										{product.name}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+						<FormControl fullWidth>
+							<TextField
+								id="outlined-number"
+								label="Quantity *"
+								type="number"
+								// InputLabelProps={{
+								// 	shrink: true,
+								// }}
+								variant="outlined"
+							/>
+						</FormControl>
+						<FormControl fullWidth>
+							<TextField
+								id="outlined-number"
+								label="Price *"
+								type="number"
+								// InputLabelProps={{
+								// 	shrink: true,
+								// }}
+								variant="outlined"
+							/>
+						</FormControl>
 
 						<Button type="submit" variant="contained">
-							Submit Product
+							ADD NEW SALE
 						</Button>
 					</Box>
 				</Box>
