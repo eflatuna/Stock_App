@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ProductModal from "../components/Modals/ProductModal";
 import { Box, Button, Container, Typography } from "@mui/material";
-import DataGridDemo from "../components/Grids/DataGridDemo";
+import ProductTable from "../components/Tables/ProductTable";
 import useStockCall from "../hooks/useStockCall";
 import { useSelector } from "react-redux";
 
@@ -33,7 +33,7 @@ const Products = () => {
 				New Product
 			</Button>
 			<Container>
-				<DataGridDemo />
+				<ProductTable />
 				{open && <ProductModal open={open} handleClose={handleClose} />}
 			</Container>
 		</Box>

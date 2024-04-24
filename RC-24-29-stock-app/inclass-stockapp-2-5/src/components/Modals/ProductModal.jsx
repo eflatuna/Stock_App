@@ -60,7 +60,10 @@ export default function ProductModal({ open, handleClose }) {
 								onChange={handleChange}
 							>
 								{categories.map((category) => (
-									<MenuItem value={category._id}>
+									<MenuItem
+										key={category._id}
+										value={category._id}
+									>
 										{category.name}
 									</MenuItem>
 								))}
@@ -79,7 +82,7 @@ export default function ProductModal({ open, handleClose }) {
 								onChange={handleChange}
 							>
 								{brands.map((brand) => (
-									<MenuItem value={brand._id}>
+									<MenuItem key={brand._id} value={brand._id}>
 										{brand.name}
 									</MenuItem>
 								))}
@@ -91,7 +94,7 @@ export default function ProductModal({ open, handleClose }) {
 							id="name"
 							type="text"
 							variant="outlined"
-							// value={info?. || ""}
+							value={info.name}
 							onChange={handleChange}
 						/>
 

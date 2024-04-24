@@ -5,7 +5,7 @@ import useStockCall from "../../hooks/useStockCall";
 import { useSelector } from "react-redux";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-export default function DataGridDemo() {
+export default function ProductTable() {
 	const { getProducts, deleteStockData } = useStockCall();
 	const { products } = useSelector((state) => state.stock);
 	React.useEffect(() => {
