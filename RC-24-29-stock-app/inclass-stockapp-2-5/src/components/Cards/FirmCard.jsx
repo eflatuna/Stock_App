@@ -7,7 +7,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import useStockCall from "../../hooks/useStockCall";
-import { btnHover } from "../../styles/globalStyle";
+import { btnStyle } from "../../styles/globalStyle";
 
 export default function FirmCard({
 	_id,
@@ -57,15 +57,15 @@ export default function FirmCard({
 				}}
 			>
 				<EditIcon
-					sx={btnHover}
 					onClick={() => {
 						handleOpen();
 						setInitialState({ _id, name, phone, image, address });
 					}}
+					sx={btnStyle}
 				/>
 				<DeleteOutlineIcon
-					sx={btnHover}
 					onClick={() => deleteStockData("firms", _id)}
+					sx={btnStyle}
 				/>
 			</CardActions>
 		</Card>

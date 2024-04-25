@@ -62,7 +62,10 @@ const Brands = () => {
 					handleClose={handleClose}
 					initialState={initialState}
 				>
-					<BrandForm />
+					<BrandForm
+						handleClose={handleClose}
+						initialState={initialState}
+					/>
 				</StockModal>
 			)}
 		</Container>

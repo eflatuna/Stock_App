@@ -1,27 +1,20 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
-import useStockCall from "../../hooks/useStockCall";
-import { useSelector } from "react-redux";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { btnHover, btnStyle } from "../../styles/globalStyle";
-// import SalesCard from "../Cards/SalesCard";
+import { GridActionsCellItem } from "@mui/x-data-grid";
+import React from "react";
+import { useSelector } from "react-redux";
+import useStockCall from "../../hooks/useStockCall";
+import { btnStyle } from "../../styles/globalStyle";
+import DataTable from "../Commons/DataTable";
 
-function getRowId(row) {
-	console.log(row);
-	return row._id;
-}
-
-export default function SalesTable() {
+const SaleTable = ({ handleOpen, setInitialState }) => {
 	const { deleteStockData } = useStockCall();
 	const { sales } = useSelector((state) => state.stock);
-
 	const columns = [
 		{
 			field: "createdAt",
 			headerName: "Date",
-			width: 170,
+			minWidth: 150,
 			headerAlign: "center",
 			align: "center",
 			valueGetter: (value) => {
@@ -32,111 +25,84 @@ export default function SalesTable() {
 		{
 			field: "brandId",
 			headerName: "Brand",
+			flex: 1,
+			minWidth: 100,
 			headerAlign: "center",
 			align: "center",
-			minwidth: 150,
-			editable: true,
-			flex: 2,
-			valueGetter: (value) => value?.name ?? "-No Brand-",
-			// console.log(value);
+			valueGetter: (value) => {
+				return value?.name ?? "-No Brand-";
+			},
 		},
 		{
 			field: "productId",
 			headerName: "Product",
+			flex: 1,
+			minWidth: 100,
 			headerAlign: "center",
 			align: "center",
-			minwidth: 150,
-			flex: 2,
-
-			valueGetter: (value) => value?.name ?? "-No Brand-",
-			// console.log(value);
+			valueGetter: (value) => {
+				return value?.name ?? "-No Product-";
+			},
 		},
-
 		{
 			field: "quantity",
 			headerName: "Quantity",
-			type: "number",
-			minWidth: 110,
+			minWidth: 50,
 			headerAlign: "center",
 			align: "center",
-			flex: 0.8,
 		},
-
 		{
 			field: "price",
 			headerName: "Price",
-			type: "number",
-			minWidth: 150,
+			minWidth: 50,
 			headerAlign: "center",
 			align: "center",
-			flex: 2,
 		},
 		{
 			field: "amount",
 			headerName: "Amount",
-			type: "number",
-			minWidth: 150,
+			minWidth: 50,
 			headerAlign: "center",
 			align: "center",
-			flex: 2,
 		},
-
 		{
 			field: "actions",
 			headerName: "Actions",
+			minWidth: 40,
 			headerAlign: "center",
 			align: "center",
-			description: "This column has a value getter and is not sortable.",
-			sortable: true,
-			minWidth: 40,
-			flex: 1,
-
-			renderCell: (params) => (
-				// console.log(params)
-
-				<Box sx={{ display: "flex", gap: 1 }}>
-					<DeleteOutlineIcon
-						onClick={() => deleteStockData("sales", params.id)}
-						sx={btnStyle}
-					/>
-					<EditIcon
-						sx={btnHover}
+			renderCell: ({
+				row: { brandId, price, quantity, productId, _id },
+			}) => {
+				return [
+					<GridActionsCellItem
+						key={"edit"}
+						icon={<EditIcon />}
+						label="Edit"
 						onClick={() => {
-							// handleOpen();
+							handleOpen();
 							setInitialState({
+								brandId,
+								price,
+								quantity,
+								productId,
 								_id,
-								name,
-								phone,
-								image,
-								address,
 							});
 						}}
-					/>
-				</Box>
-			),
+						sx={btnStyle}
+					/>,
+					<GridActionsCellItem
+						key={"delete"}
+						icon={<DeleteIcon />}
+						label="Delete"
+						onClick={() => deleteStockData("sales", _id)}
+						sx={btnStyle}
+					/>,
+				];
+			},
 		},
 	];
+	return <DataTable rows={sales} columns={columns} />;
+};
 
-	return (
-		<Box sx={{ height: 400, width: "100%" }}>
-			<DataGrid
-				autoHeight
-				// rows={rows}
-				rows={sales}
-				columns={columns}
-				initialState={{
-					pagination: {
-						paginationModel: {
-							pageSize: 5,
-						},
-					},
-				}}
-				getRowId={getRowId}
-				pageSizeOptions={[5, 10, 25]}
-				// checkboxSelection
-				disableRowSelectionOnClick
-				slots={{ toolbar: GridToolbar }}
-			/>
-		</Box>
-	);
-}
+export default SaleTable;

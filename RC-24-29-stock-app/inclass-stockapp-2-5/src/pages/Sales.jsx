@@ -1,59 +1,55 @@
+import Container from "@mui/material/Container";
 import React, { useEffect, useState } from "react";
-// import SalesModal from "../components/Modals/SalesModal";
-import { Box, Button, Container, Typography } from "@mui/material";
-// import SalesTable from "../components/Tables/SalesTable";
+import MyButton from "../components/Commons/MyButton";
+import PageHeader from "../components/Commons/PageHeader";
+import StockModal from "../components/Commons/StockModal";
+import SaleForm from "../components/Forms/SaleForm";
+import SaleTable from "../components/Tables/SaleTable";
 import useStockCall from "../hooks/useStockCall";
-import { useSelector } from "react-redux";
 
 const Sales = () => {
-	const { getStockData, getProCatBrand } = useStockCall();
-	const { sales } = useSelector((state) => state.stock);
+	const { getProSalBrands } = useStockCall();
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => {
 		setOpen(false);
 		setInitialState({
-			brand: "",
-			product: "",
+			brandId: "",
+			productId: "",
 			quantity: "",
 			price: "",
 		});
 	};
-	console.log("sales:", sales);
-	useEffect(() => {
-		getStockData("products");
-		getStockData("sales");
-		getStockData("brands");
-		// getProCatBrand()
-	}, []);
 	const [initialState, setInitialState] = useState({
-		brand: "",
-		product: "",
+		brandId: "",
+		productId: "",
 		quantity: "",
 		price: "",
 	});
+	useEffect(() => {
+		getProSalBrands();
+	}, []);
+
 	return (
 		<Container maxWidth={"xl"}>
-			<Typography
-				align="center"
-				variant="h4"
-				component="h1"
-				color="secondary.second"
-			>
-				Sales
-			</Typography>
-			<Button variant="contained" onClick={handleOpen}>
-				New Sales
-			</Button>
-			{open &&
-				{
-					/* <SalesModal
-					open={open}
-					handleClose={handleClose}
-					initialState={initialState}
-				/> */
-				}}
-			{/* <SalesTable /> */}
+			<PageHeader text="Sales" />
+			<MyButton
+				variant="contained"
+				onClick={handleOpen}
+				title="New Sale"
+			/>
+			{open && (
+				<StockModal open={open} handleClose={handleClose}>
+					<SaleForm
+						handleClose={handleClose}
+						initialState={initialState}
+					/>
+				</StockModal>
+			)}
+			<SaleTable
+				setInitialState={setInitialState}
+				handleOpen={handleOpen}
+			/>
 		</Container>
 	);
 };

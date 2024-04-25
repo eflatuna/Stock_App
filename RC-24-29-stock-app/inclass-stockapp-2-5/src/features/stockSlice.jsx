@@ -43,6 +43,24 @@ const stockSlice = createSlice({
 			state.categories = payload[1];
 			state.brands = payload[2];
 		},
+		getProPurcFirBrandsSuccess: (state, { payload }) => {
+			state.loading = false;
+			state.products = payload[0].data;
+			state.purchases = payload[1].data;
+			state.firms = payload[2].data;
+			state.brands = payload[3].data;
+		},
+		getProSalBrandsSuccess: (state, { payload }) => {
+			state.loading = false;
+			state.products = payload[0].data;
+			state.brands = payload[1].data;
+			state.sales = payload[2].data;
+		},
+		getPurcSalesSuccess: (state, { payload }) => {
+			state.loading = false;
+			state.purchases = payload[1].data;
+			state.sales = payload[0].data;
+		},
 		fetchFail: (state) => {
 			state.loading = false;
 			state.error = true;
