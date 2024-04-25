@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import SalesModal from "../components/Modals/SalesModal";
+// import SalesModal from "../components/Modals/SalesModal";
 import { Box, Button, Container, Typography } from "@mui/material";
-import SalesTable from "../components/Tables/SalesTable";
+// import SalesTable from "../components/Tables/SalesTable";
 import useStockCall from "../hooks/useStockCall";
 import { useSelector } from "react-redux";
 
@@ -45,14 +45,15 @@ const Sales = () => {
 			<Button variant="contained" onClick={handleOpen}>
 				New Sales
 			</Button>
-			{open && (
-				<SalesModal
+			{open &&
+				{
+					/* <SalesModal
 					open={open}
 					handleClose={handleClose}
 					initialState={initialState}
-				/>
-			)}
-			<SalesTable />
+				/> */
+				}}
+			{/* <SalesTable /> */}
 		</Container>
 	);
 };

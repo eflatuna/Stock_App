@@ -52,7 +52,7 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { Outlet } from "react-router-dom";
 import useAuthCall from "../hooks/useAuthCall";
-import MenuListItems from "../components/MenuListItems";
+import MenuListItems from "../components/Navigation/MenuListItems";
 
 const drawerWidth = 240;
 

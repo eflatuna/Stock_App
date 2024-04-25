@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-// import {useDispatch, useSelector} from "react-redux";
-// import { fetchFail, fetchStart, firmsSuccess } from '../features/stockSlice';
-// import axios from "axios";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
 import FirmCard from "../components/Cards/FirmCard";
-import FirmModal from "../components/Modals/FirmModal";
 import useStockCall from "../hooks/useStockCall";
+import PageHeader from "../components/Commons/PageHeader";
+import MyButton from "../components/Commons/MyButton";
+import StockModal from "../components/Commons/StockModal";
+import FirmForm from "../components/Forms/FirmForm";
 
 const Firms = () => {
 	//? firms verileri bana birden fazla yerde lazım olduğu için fonksiyonu burada değil de her yerden erişebileceğim bir noktada tanımlıyorum. İçerisinde react hookları lazım olduğu için de bu ortak nokta en iyi custom hook olmuş oluyor.
@@ -64,17 +62,12 @@ const Firms = () => {
 
 	return (
 		<Container>
-			<Typography
-				align="center"
-				variant="h4"
-				component="h1"
-				color="secondary.second"
-			>
-				Firms
-			</Typography>
-			<Button variant="contained" onClick={handleOpen}>
-				New Firm
-			</Button>
+			<PageHeader text="Firms" />
+			<MyButton
+				variant="contained"
+				onClick={handleOpen}
+				title="New Firm"
+			/>
 			<Grid container spacing={2} mt={3}>
 				{firms.map((firm) => (
 					<Grid item xs={12} md={6} lg={4} xl={3} key={firm._id}>
@@ -87,11 +80,16 @@ const Firms = () => {
 				))}
 			</Grid>
 			{open && (
-				<FirmModal
+				<StockModal
 					open={open}
 					handleClose={handleClose}
 					initialState={initialState}
-				/>
+				>
+					<FirmForm
+						handleClose={handleClose}
+						initialState={initialState}
+					/>
+				</StockModal>
 			)}
 		</Container>
 	);

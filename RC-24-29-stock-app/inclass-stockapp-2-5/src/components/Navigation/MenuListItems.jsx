@@ -1,10 +1,7 @@
-import MailIcon from "@mui/icons-material/Mail";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import { Box } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import React from "react";
@@ -16,10 +13,11 @@ const links = [
 	{
 		title: "Dashboard",
 		url: "/stock",
+		// icon:"/assets/navbar/ic_analytics.svg"
 		icon: icon("ic_analytics"),
 	},
 	{
-		title: "Purschases",
+		title: "Purchases",
 		url: "/stock/purchases",
 		icon: icon("purchase"),
 	},
@@ -44,6 +42,7 @@ const links = [
 		url: "/stock/products/",
 	},
 ];
+
 const iconStyle = {
 	color: "secondary.main",
 	borderRadius: "1rem",
@@ -65,12 +64,12 @@ const selectedStyle = {
 const MenuListItems = () => {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
-	console.log(location);
+	console.log(pathname);
 	return (
 		<div>
 			<Toolbar />
 			<List>
-				{links?.map((item, index) => (
+				{links.map((item, index) => (
 					<ListItem key={item.title} disablePadding>
 						<ListItemButton
 							onClick={() => navigate(item.url)}
@@ -78,22 +77,25 @@ const MenuListItems = () => {
 								pathname == item.url ? selectedStyle : iconStyle
 							}
 						>
-							{/* <ListItemIcon>
-								<Box
-									sx={{
-										backgroundImage: `url(${item.icon})`,
-										width: 48,
-										height: 48,
-										bgcolor: "red",
-									}}
-								/>
-							</ListItemIcon> */}
+							{/* <Box
+                sx={{
+                  backgroundImage: `url(${item.icon})`,
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
+                  width: 48,
+                  height: 48,
+                  backgroundColor: "red",
+                }}
+              /> */}
+
 							<Box
 								sx={{
 									width: 24,
 									height: 24,
-									mask: `url(${item.icon}) no-repeat center/contain`,
-									bgcolor: "currentcolor",
+									mask: `url(${item.icon}) no-repeat center / contain`,
+									mr: 2,
+									bgcolor: "currentColor",
 								}}
 							/>
 							<ListItemText primary={item.title} />
