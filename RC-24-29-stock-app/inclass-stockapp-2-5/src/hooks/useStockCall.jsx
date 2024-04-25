@@ -76,6 +76,7 @@ const useStockCall = () => {
 	const getBrands = () => getStockData("brands");
 	const getCategories = () => getStockData("categories");
 	const getProducts = () => getStockData("products");
+	const getSales = () => getStockData("sales");
 
 	//! istek atarken ortak olan base_url  ve token gibi değerleri her seferinde yazmak yerine axios instance kullanarak bunları orada tanımlıyoruz. Ve sonrasında sadece istek atmak istediğimiz end pointi yazmamız yeterli oluyor.
 
@@ -99,6 +100,7 @@ const useStockCall = () => {
 	};
 
 	const deleteBrands = (_id) => deleteStockData("brands", _id);
+
 	//!----------------  POST CALLS  ---------------------//
 	const postStockData = async (url, info) => {
 		dispatch(fetchStart());
@@ -151,6 +153,7 @@ const useStockCall = () => {
 	};
 	return {
 		deleteBrands,
+
 		getBrands,
 		deleteStockData,
 		putStockData,
@@ -158,6 +161,7 @@ const useStockCall = () => {
 		getStockData,
 		getCategories,
 		getProducts,
+		getSales,
 		getProCatBrand,
 	};
 };

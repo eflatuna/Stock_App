@@ -11,14 +11,10 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import { useSelector } from "react-redux";
 
-export default function SalesModal({ open, handleClose }) {
-	const [info, setInfo] = React.useState({
-		categoryId: "",
-		brandId: "",
-		name: "",
-	});
-	const { postStockData } = useStockCall();
+export default function SalesModal({ open, handleClose, initialState }) {
 	const { brands, products } = useSelector((state) => state.stock);
+	const [info, setInfo] = React.useState(initialState);
+	const { postStockData, putStockData } = useStockCall();
 
 	const handleChange = (e) => {
 		console.log(e.target.id);
@@ -29,7 +25,13 @@ export default function SalesModal({ open, handleClose }) {
 	console.log(info);
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		postStockData("products", info);
+		console.log("submit", info);
+
+		if (info._id) {
+			putStockData("sales", info);
+		} else {
+			postStockData("sales", info);
+		}
 		handleClose();
 	};
 
@@ -112,6 +114,7 @@ export default function SalesModal({ open, handleClose }) {
 						</FormControl>
 
 						<Button type="submit" variant="contained">
+							{info._id ? "Update Brand" : "Submit Brand"}
 							ADD NEW SALE
 						</Button>
 					</Box>

@@ -4,7 +4,9 @@ import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import useStockCall from "../../hooks/useStockCall";
 import { useSelector } from "react-redux";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { btnStyle } from "../../styles/globalStyle";
+import EditIcon from "@mui/icons-material/Edit";
+import { btnHover, btnStyle } from "../../styles/globalStyle";
+// import SalesCard from "../Cards/SalesCard";
 
 function getRowId(row) {
 	console.log(row);
@@ -13,33 +15,34 @@ function getRowId(row) {
 
 export default function SalesTable() {
 	const { deleteStockData } = useStockCall();
-	const { products } = useSelector((state) => state.stock);
+	const { sales } = useSelector((state) => state.stock);
 
 	const columns = [
 		{
-			field: "_id",
-			headerName: "ID",
-			minWidth: 40,
-			maxWidth: 70,
+			field: "createdAt",
+			headerName: "Date",
+			width: 170,
 			headerAlign: "center",
 			align: "center",
-			flex: 0,
+			valueGetter: (value) => {
+				return new Date(value).toLocaleString("de-DE");
+			},
 		},
 
 		{
-			field: "categoryId",
-			headerName: "Category",
+			field: "brandId",
+			headerName: "Brand",
 			headerAlign: "center",
 			align: "center",
 			minwidth: 150,
 			editable: true,
 			flex: 2,
-			valueGetter: (value) => value?.name ?? "-No Category-",
+			valueGetter: (value) => value?.name ?? "-No Brand-",
 			// console.log(value);
 		},
 		{
-			field: "brandId",
-			headerName: "Brand",
+			field: "productId",
+			headerName: "Product",
 			headerAlign: "center",
 			align: "center",
 			minwidth: 150,
@@ -48,64 +51,78 @@ export default function SalesTable() {
 			valueGetter: (value) => value?.name ?? "-No Brand-",
 			// console.log(value);
 		},
-		{
-			field: "name",
-			headerName: "Name",
-			minWidth: 150,
-			headerAlign: "center",
-			align: "center",
-			flex: 2,
-		},
+
 		{
 			field: "quantity",
-			headerName: "Stock",
+			headerName: "Quantity",
 			type: "number",
 			minWidth: 110,
 			headerAlign: "center",
 			align: "center",
 			flex: 0.8,
 		},
+
+		{
+			field: "price",
+			headerName: "Price",
+			type: "number",
+			minWidth: 150,
+			headerAlign: "center",
+			align: "center",
+			flex: 2,
+		},
+		{
+			field: "amount",
+			headerName: "Amount",
+			type: "number",
+			minWidth: 150,
+			headerAlign: "center",
+			align: "center",
+			flex: 2,
+		},
+
 		{
 			field: "actions",
 			headerName: "Actions",
 			headerAlign: "center",
 			align: "center",
 			description: "This column has a value getter and is not sortable.",
-			sortable: false,
+			sortable: true,
 			minWidth: 40,
 			flex: 1,
 
 			renderCell: (params) => (
 				// console.log(params)
-				<DeleteOutlineIcon
-					onClick={() => deleteStockData("products", params.id)}
-					sx={btnStyle}
-				/>
+
+				<Box sx={{ display: "flex", gap: 1 }}>
+					<DeleteOutlineIcon
+						onClick={() => deleteStockData("sales", params.id)}
+						sx={btnStyle}
+					/>
+					<EditIcon
+						sx={btnHover}
+						onClick={() => {
+							// handleOpen();
+							setInitialState({
+								_id,
+								name,
+								phone,
+								image,
+								address,
+							});
+						}}
+					/>
+				</Box>
 			),
-			// getActions: (props) => [
-			// 	<GridActionsCellItem
-			// 		icon={<DeleteForeverIcon />}
-			// 		onClick={() => deleteStockData("products", props.id)}
-			// 		label="Delete"
-			// 	/>,
-			// ],
 		},
 	];
-
-	// const rows = products.map((product, index) => ({
-	// 	id: product._id,
-	// 	name: product.name,
-	// 	category: product.categoryId.name,
-	// 	brand: product.brandId.name,
-	// 	stock: product.quantity,
-	// }));
 
 	return (
 		<Box sx={{ height: 400, width: "100%" }}>
 			<DataGrid
 				autoHeight
 				// rows={rows}
-				rows={products}
+				rows={sales}
 				columns={columns}
 				initialState={{
 					pagination: {
