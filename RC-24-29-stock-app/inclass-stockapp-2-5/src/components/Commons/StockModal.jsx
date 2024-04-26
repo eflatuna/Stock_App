@@ -7,6 +7,7 @@ export default function StockModal({ open, handleClose, children }) {
 	return (
 		<div>
 			<Modal
+				sx={{ fontFamily: "Poppins" }}
 				open={open}
 				onClose={handleClose}
 				aria-labelledby="modal-modal-title"

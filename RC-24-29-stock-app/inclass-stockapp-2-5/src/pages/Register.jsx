@@ -2,7 +2,8 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import LockIcon from "@mui/icons-material/Lock";
-import image from "../assets/regi.avif";
+// import image from "../assets/onlinelog.jpg";
+import image from "../assets/image34.png";
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/material";
@@ -27,6 +28,7 @@ const Register = () => {
 				}}
 			>
 				<AuthHeader />
+				<AuthImage image={image} />
 
 				<Grid item xs={12} sm={10} md={6}>
 					<Avatar
@@ -44,8 +46,12 @@ const Register = () => {
 						align="center"
 						mb={2}
 						color="secondary.light"
+						sx={{ fontFamily: "Poppins" }}
 					>
 						Register
+					</Typography>
+					<Typography sx={{ fontFamily: "Poppins" }} align="center">
+						Manage all your inventory efficiently
 					</Typography>
 
 					<Formik
@@ -74,8 +80,6 @@ const Register = () => {
 						<Link to="/">Already have an account? Sign in</Link>
 					</Box>
 				</Grid>
-
-				<AuthImage image={image} />
 			</Grid>
 		</Container>
 	);

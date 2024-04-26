@@ -4,7 +4,8 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import LockIcon from "@mui/icons-material/Lock";
-import image from "../assets/hero.png";
+// import image from "../assets/image34.png";
+import image from "../assets/onlinelog.jpg";
 import { Link } from "react-router-dom";
 import AuthHeader from "../components/Commons/AuthHeader";
 import AuthImage from "../components/Commons/AuthImage";
@@ -26,6 +27,7 @@ const Login = () => {
 				}}
 			>
 				<AuthHeader />
+				<AuthImage image={image} />
 
 				<Grid item xs={12} sm={10} md={6}>
 					<Avatar
@@ -43,8 +45,12 @@ const Login = () => {
 						align="center"
 						mb={4}
 						color="secondary.main"
+						sx={{ fontFamily: "Poppins" }}
 					>
 						SIGN IN
+					</Typography>
+					<Typography sx={{ fontFamily: "Poppins" }} align="center">
+						see your growth and get support!
 					</Typography>
 
 					<Formik
@@ -69,8 +75,6 @@ const Login = () => {
 						</Link>
 					</Box>
 				</Grid>
-
-				<AuthImage image={image} />
 			</Grid>
 		</Container>
 	);

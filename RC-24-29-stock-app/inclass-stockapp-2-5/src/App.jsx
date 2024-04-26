@@ -1,4 +1,5 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 import AppRouter from "./router/AppRouter";
 import { Provider } from "react-redux";
 import store from "./app/store";
@@ -10,12 +11,19 @@ function App() {
 	const theme = createTheme({
 		palette: {
 			primary: {
-				main: "#454F5B",
+				main: "#1565C0",
 			},
 			secondary: {
-				main: "#454F5B",
-				second: "#161C24",
+				main: "#1565C0",
+				second: "#2196F3",
 			},
+		},
+		typography: {
+			fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
+			fontSize: 14,
+			fontWeightLight: 300,
+			fontWeightRegular: 400,
+			fontWeightMedium: 500,
 		},
 	});
 	return (
