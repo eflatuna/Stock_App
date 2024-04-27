@@ -45,11 +45,10 @@ const Login = () => {
 						align="center"
 						mb={4}
 						color="secondary.main"
-						sx={{ fontFamily: "Poppins" }}
 					>
 						SIGN IN
 					</Typography>
-					<Typography sx={{ fontFamily: "Poppins" }} align="center">
+					<Typography align="center">
 						see your growth and get support!
 					</Typography>
 

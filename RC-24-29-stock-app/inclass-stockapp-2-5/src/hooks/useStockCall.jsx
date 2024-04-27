@@ -4,6 +4,9 @@ import {
 	fetchFail,
 	fetchStart,
 	getProCatBrandSuccess,
+	getProPurcFirBrandsSuccess,
+	getProSalBrandsSuccess,
+	getPurcSalesSuccess,
 	// firmsSuccess,
 	getSuccess,
 } from "../features/stockSlice";
@@ -173,8 +176,6 @@ const useStockCall = () => {
 		}
 	};
 	return {
-		// getFirms,
-		// getBrands,
 		deleteStockData,
 		putStockData,
 		postStockData,

@@ -46,11 +46,10 @@ const Register = () => {
 						align="center"
 						mb={2}
 						color="secondary.light"
-						sx={{ fontFamily: "Poppins" }}
 					>
 						Register
 					</Typography>
-					<Typography sx={{ fontFamily: "Poppins" }} align="center">
+					<Typography align="center">
 						Manage all your inventory efficiently
 					</Typography>
 

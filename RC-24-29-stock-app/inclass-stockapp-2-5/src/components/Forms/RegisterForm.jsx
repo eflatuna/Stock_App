@@ -118,7 +118,6 @@ const SignUpForm = ({
 						variant="contained"
 						size="large"
 						disabled={isSubmitting}
-						sx={{ fontFamily: "Poppins" }}
 					>
 						{isSubmitting ? "Loading..." : "Sign Up"}
 					</Button>

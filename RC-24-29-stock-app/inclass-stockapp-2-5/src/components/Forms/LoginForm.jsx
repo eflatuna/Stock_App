@@ -42,11 +42,7 @@ const LoginForm = ({ values, handleChange, errors, touched, handleBlur }) => {
 					error={touched.password && Boolean(errors.password)}
 				/>
 				{!loading ? (
-					<Button
-						variant="contained"
-						type="submit"
-						sx={{ fontFamily: "Poppins" }}
-					>
+					<Button variant="contained" type="submit">
 						Sign In
 					</Button>
 				) : (
